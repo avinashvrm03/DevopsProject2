@@ -48,6 +48,7 @@ pipeline {
     stage('Build And Push Docker Image') {
       steps {
         script {
+          sh 'echo $Image_Name'
           docker.withRegistry('', 'dockerhub') {
             docker_image = docker.build('$Image_Name')
           }
