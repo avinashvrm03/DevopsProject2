@@ -1,8 +1,8 @@
 pipeline {
   agent any 
   tools {
-    jdk 'jav21'
-    nodejs 'node14'
+    jdk 'java21'
+    nodejs 'node16'
   }
   environment{
     Scanner_Home = tool 'SonarQube-Scanner'
