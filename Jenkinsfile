@@ -6,6 +6,9 @@ pipeline {
   }
   environment{
     scannerHome = tool 'SonarQube-Scanner'
+    Docker_User = 'avinash0001'
+    App = 'amazonprimeclone'
+    Image_Name = "$(Docker_User)/$(App)"
   }
   stages {
     stage('Cleanup WorkSpace') {
@@ -40,6 +43,18 @@ pipeline {
     stage('Trivy FS Scan') {
       steps {
         sh 'trivy fs . > trivy.txt'
+      }
+    }
+    stage('Build And Push Docker Image') {
+      steps {
+        script {
+          docker.withRegistry('', 'dockerhub') {
+            docker_image = docker.build('$Image_Name')
+          }
+          docker.withRegistry('', 'dockerhub') {
+            docker_image.push('latest')
+          }
+        }
       }
     }
   }
