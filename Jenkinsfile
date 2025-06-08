@@ -15,7 +15,7 @@ pipeline {
     }
     stage('Checkout Code') {
       steps {
-        git branch: 'main', credentailsId: 'github', url: 'https://github.com/avinashvrm03/DevopsProject2.git'
+        git branch: 'main', credentialsId: 'github', url: 'https://github.com/avinashvrm03/DevopsProject2.git'
       }
     }
   }
