@@ -8,7 +8,7 @@ pipeline {
     scannerHome = tool 'SonarQube-Scanner'
     Docker_User = 'avinash0001'
     App = 'amazonprimeclone'
-    Image_Name = "$(Docker_User)/$(App)"
+    Image_Name = "($Docker_User)/($App)"
   }
   stages {
     stage('Cleanup WorkSpace') {
