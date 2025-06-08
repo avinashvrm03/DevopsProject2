@@ -5,7 +5,7 @@ pipeline {
     nodejs 'node16'
   }
   environment{
-    Scanner_Home = tool 'SonarQube-Scanner'
+    scannerHome = tool 'SonarQube-Scanner'
   }
   stages {
     stage('Cleanup WorkSpace') {
@@ -16,6 +16,15 @@ pipeline {
     stage('Checkout Code') {
       steps {
         git branch: 'main', credentialsId: 'github', url: 'https://github.com/avinashvrm03/DevopsProject2.git'
+      }
+    }
+    stage('SonarQube Analysis') {
+      steps {
+        script {
+          withSonarQubeEnv('SonarQube-Server') {
+             sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectName=amazonprimeclone -Dsonar.projectKey=amazonprimeclone"
+          }
+        }
       }
     }
   }
