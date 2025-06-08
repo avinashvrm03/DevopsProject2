@@ -51,6 +51,7 @@ pipeline {
           sh 'echo $Image_Name'
           docker.withRegistry('', 'dockerhub') {
             docker_image = docker.build('$Image_Name')
+            sh 'echo $docker_image '
           }
           docker.withRegistry('', 'dockerhub') {
             docker_image.push('latest')
