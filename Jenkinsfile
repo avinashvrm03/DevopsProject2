@@ -53,7 +53,7 @@ pipeline {
             docker_image = docker.build("${IMAGE_NAME}")
           }
           docker.withRegistry('', 'dockerhub') {
-            echo "Pushing Docker image: ${docker_image.imageName}"
+            echo "Pushing Docker image: ${IMAGE_NAME}"
             docker_image.push('latest')
           }
         }
