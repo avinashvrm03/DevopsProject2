@@ -54,7 +54,7 @@ pipeline {
           }
           docker.withRegistry('', 'dockerhub') {
             sh 'echo $docker_image'
-            #docker_image.push('latest')
+            //docker_image.push('latest')
           }
         }
       }
