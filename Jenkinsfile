@@ -8,7 +8,7 @@ pipeline {
     scannerHome = tool 'SonarQube-Scanner'
     DOCKER_USER = 'avinash0001'
     APP = 'amazonprimeclone'
-    IMAGE_NAME = "${Docker_User}/${App}"
+    IMAGE_NAME = "${DOCKER_USER}/${APP}"
   }
   stages {
     stage('Cleanup WorkSpace') {
@@ -48,12 +48,12 @@ pipeline {
     stage('Build And Push Docker Image') {
       steps {
         script {
-          sh 'echo $IMAGE_NAME'
+          echo "Building Docker image: ${IMAGE_NAME}"
           docker.withRegistry('', 'dockerhub') {
-            docker_image = docker.build('$IMAGE_NAME')
+            docker_image = docker.build("${IMAGE_NAME}")
           }
           docker.withRegistry('', 'dockerhub') {
-            sh 'echo $docker_image'
+            echo "Pushing Docker image: ${docker_image.imageName}"
             docker_image.push('latest')
           }
         }
